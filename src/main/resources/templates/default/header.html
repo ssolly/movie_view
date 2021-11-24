@@ -12,7 +12,18 @@
 			url:"/geturl", type:"get", dataType:"json",
 			success: function(urlList) {
 				console.log(urlList)
+				showUrl(urlList)
 			}
+		})
+	}
+	
+	function showUrl(urlList) {
+		$.each(urlList, function(index,item){
+			$("#nav_url").append("<li id="+index+"></li>")	//<li id="0"></li>
+			a=document.createElement("a");	//a tag 만들어줌
+			a.href=item.links[0].href		//경로
+			a.innerHTML = item.title		//문자열 넣어줌 //item.links[0].rel
+			$("#"+index).append(a)
 		})
 	}
 </script>
@@ -24,8 +35,7 @@
 		<nav class="nav">
 			<!-- nav -->
 			<ul id="nav_url">
-				<li><a href="">test1</a></li>
-				<li><a href="">test2</a></li>
+		
 			</ul>
 		</nav>
 		<hr>
