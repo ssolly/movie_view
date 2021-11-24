@@ -22,6 +22,7 @@ public class UrlService {
 			UrlDto dto = new UrlDto(name[i], url[i]);
 			Link link = Link.of(defaultURL+url[i]);		//boot문법, 기본 경로 
 			dto.add(link.withRel(dto.getUrl()));		// getUrl : "/home", "/searchMovie"
+			urlList.add(dto);
 		}
 		return urlList;
 	}

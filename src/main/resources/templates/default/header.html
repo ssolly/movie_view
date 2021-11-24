@@ -5,8 +5,19 @@
 <title>header</title>
 <!-- 외부에 있는 css 연결 -->
 <link rel="stylesheet" type="text/css" href="/style.css">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> 	<!-- ajax -->
+<script type="text/javascript">
+	function getUrl() {
+		$.ajax({
+			url:"/geturl", type:"get", dataType:"json",
+			success: function(urlList) {
+				console.log(urlList)
+			}
+		})
+	}
+</script>
 </head>
-<body>
+<body onload="getUrl()">	<!-- 경로를 얻어와야하기 때문에 onload 설정 -->
 	<div class="wrap">
 		<h1 class="title">CARE LAB</h1>
 		<hr>
