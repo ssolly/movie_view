@@ -16,7 +16,7 @@ public class UrlService {
 		
 		String[] url= {"/home","/searchMovie"};
 		String[] name= {"홈","영화검색"};
-		String defaultURL = "http://location:10000";
+		String defaultURL = "http://localhost:10000";
 		
 		for(int i=0; i<url.length;i++) {
 			UrlDto dto = new UrlDto(name[i], url[i]);
