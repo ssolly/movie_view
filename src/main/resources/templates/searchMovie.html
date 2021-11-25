@@ -6,9 +6,41 @@
 <script type="text/javascript">
 	function getMovies(links) {
 		//파싱:문자열이 제대로 안들어오기때문에 작업
-		let frontNum = links.indexOf("<") + 1	//<>꺽쇄 안의 내용만 가져오는 작업
+		let frontNum = links.indexOf("<") + 1 //<>꺽쇄 안의 내용만 가져오는 작업
 		let rearNum = links.indexOf(">")
 		console.log(links.substring(frontNum, rearNum))
+
+		/*
+		let movieInfoURL = links.substring(frontNum, rearNum)
+		$.ajax({
+			url : movieInfoURL,
+			type : "GET",
+			dataType : "json",
+			success : function(info) {	
+				let html = info.result
+				$("#search").html(html)
+			},
+			error : function() {
+				alert('문제 발생')
+			}
+		});
+		 */
+		let movieInfoURL = links.substring(frontNum, rearNum)
+		$.ajax({
+			url : movieInfoURL, type : "GET", dataType : "json",
+			success : function(info) {
+				let html = "<h2>영화 정보</h2>"
+				html += "<b>영화 제목 : </b>" + info.movieTitle + "<br>"
+				html += "<b>상영 날짜 : </b>" + info.movieDate + "<br>"
+				html += "<b>잔여 티켓 : </b>" + info.count + "<hr>"
+				html += "<a href='/bookview/"+info.movieId+"/"+info.movieTitle+"/"+info.movieDate+"'>예매하러가기</a>"
+				//let html =info.result
+				$("#search").html(html)
+			},
+			error : function() {
+						alert('문제 발생')
+					}
+		});
 	}
 </script>
 </head>
@@ -22,10 +54,10 @@
 				<th>영화 제목</th>
 				<th>상영 날짜</th>
 			</tr>
-			<tr th:each="movie : ${movie}" th:object="${movie}">		<!-- dto에서 값 가져오기 -->
+			<tr th:each="movie : ${movie}" th:object="${movie}">
 				<td><label th:text="*{movieId}"></label></td>
 				<td><a style="cursor: pointer" th:text="*{movieTitle}"
-					th:attr="onclick=|getMovies('*{links}')|"></a></td>	<!-- onclick 호출하기 -->
+					th:attr="onclick=|getMovies('*{links}')|"></a></td>
 				<td><label th:text="*{movieDate}"></label></td>
 			</tr>
 		</table>
